@@ -1,88 +1,69 @@
 #!/bin/bash
 
-# ============================ docker installation ============================
+# ============================ Jenkins installation ============================
 
-echo " 🚀 Installation of Docker start"
+echo " 🚀 Installation of Jenkins start"
 echo ""
 
 # Update ubuntu
-echo " 🛠️ Updating Ubuntu packages..."
+echo " 🛠️ Updating and upgrading Ubuntu packages..."
 sudo apt update
+sudo apt -y upgrade
 echo ""
 
-# Install required packages
-# echo " 📦 Installing required packages..."
-# sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
-# echo ""
-
-# # Add Docker’s official GPG key
-# echo " 🔑 Adding Docker’s official GPG key..."
-# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-# echo ""
-
-# # Add Docker repository
-# echo " 📦 Adding Docker repository..."
-# sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-# echo ""
-
-# # Update the package list
-# echo " 🛠️ Updating package list..."
-# sudo apt update
-# echo ""
-
-# Install Docker
-echo " ✅ Installing Docker..."
-sudo apt install docker.io -y
+# Install Java (open JDK) for Jenkins
+echo " 📦 Installing OpenJDK 11..."
+sudo apt install -y openjdk-11-jdk
+echo "Java Version:"
+java -version
 echo ""
 
-# Start Docker service
-echo " 🔄 Starting Docker service..."
-sudo systemctl start docker
+# Add Jenkins repository and key
+echo " 🔑 Adding Jenkins repository and key..."
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.gpg > /dev/null
 echo ""
 
-# Enable Docker to start at boot
-echo " 🔧 Enabling Docker to start at boot..."
-sudo systemctl enable docker
+# Add Jenkins repository
+echo " 📦 Adding Jenkins repository..."
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.gpg] https://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
 echo ""
 
-# Allow non-root users to run Docker commands
-sudo chmod 777 /var/run/docker.sock
+# Install Jenkins
+echo " ✅ Installing Jenkins..."
+sudo apt install -y jenkins
+echo ""
 
-# Add user to the Docker group
-sudo usermod -aG docker $USER && newgrp docker
+# Start Jenkins service
+echo " 🔄 Starting Jenkins service..."
+sudo systemctl start jenkins
+echo ""
 
+# Enable Jenkins to start at boot
+echo " 🔧 Enabling Jenkins to start at boot..."
+sudo systemctl enable jenkins
+echo ""
 
-echo " 🎉 Docker installation completed."
-echo "Docker version:"
-sudo docker --version
+# Check Jenkins status
+echo " 🔍 Checking Jenkins status..."
+sudo systemctl status jenkins
+echo ""
 
+# Allow non-root users to run Jenkins commands
+sudo chmod 777 /var/run/jenkins.sock
 
+# Add user to the Jenkins group
+sudo usermod -aG jenkins $USER && newgrp jenkins
 
-# ====================== Install Docker Compose ======================
-
-# Install Git
-sudo apt install git -y
-
-# Install Docker Compose
-sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-
-# Install Docker Compose
-# sudo apt install docker-compose -y
-
-# Apply executable permissions to the binary
-sudo chmod +x /usr/local/bin/docker-compose
-
-# Check Docker Compose version
-echo " 📦 Checking Docker Compose version..."
-docker-compose version
-
+echo " 🎉 Jenkins installation completed."
+echo "Jenkins version:"
+sudo jenkins --version
 
 
 # For running the script
 
-# Make the Script Executable:    chmod +x docker_install.sh
-# Run the Script                 ./docker_install.sh
-
+# Make the Script Executable:    chmod +x jenkins_install.sh
+# Run the Script                 ./jenkins_install.sh
 
 
 # ================================== end of script ===============================
