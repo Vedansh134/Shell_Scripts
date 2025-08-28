@@ -13,6 +13,9 @@ echo ""
 # Install AWS CLI
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
+# Install unzip
+sudo apt install unzip -y
+
 # unzip the installer
 unzip awscliv2.zip
 
