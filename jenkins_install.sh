@@ -2,7 +2,7 @@
 
 # ============================ Jenkins installation ============================
 
-echo " 🚀 Installation of Jenkins start"
+echo " 🚀 Installation of Jenkins started"
 echo ""
 
 # Update ubuntu

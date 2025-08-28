@@ -2,6 +2,9 @@
 
 # ========================= install trivy script ==============================
 
+echo " 🚀 Installation of Trivy started"
+echo ""
+
 # Install required packages
 echo
 sudo apt-get install wget apt-transport-https gnupg lsb-release -y

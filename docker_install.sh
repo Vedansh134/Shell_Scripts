@@ -2,7 +2,7 @@
 
 # ============================ docker installation ============================
 
-echo " 🚀 Installation of Docker start"
+echo " 🚀 Installation of Docker started"
 echo ""
 
 # Update ubuntu
