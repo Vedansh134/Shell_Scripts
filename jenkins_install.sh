@@ -12,8 +12,8 @@ sudo apt -y upgrade
 echo ""
 
 # Install Java (open JDK) for Jenkins
-echo " 📦 Installing OpenJDK 11..."
-sudo apt install -y openjdk-11-jdk
+echo " 📦 Installing OpenJDK 21..."
+sudo apt install fontconfig openjdk-21-jre
 echo "Java Version:"
 java -version
 echo ""
