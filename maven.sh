@@ -31,7 +31,7 @@ install_maven(){
 # call the install_maven function
 install_maven
 
-# maven startup script
+# start and enable maven
 echo "enable and start maven"
 $SUDO systemctl start maven
 $SUDO systemctl enable maven
