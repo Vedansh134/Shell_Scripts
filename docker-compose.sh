@@ -1,16 +1,38 @@
+#!/bin/bash
+#
 # ====================== Install Docker Compose ======================
 
+# testing (change to set -xeou pipefail for testing)
+set +xeou pipefail
+
+# define variables
+SUDO='sudo'
+
+# Update ubuntu
+echo " 🛠️ Updating Ubuntu packages..."
+$SUDO apt update -y
+echo ""
+
 # Install Git
-sudo apt install git -y
+$SUDO apt install git -y
 
-# Install Docker Compose
-sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+# check if docker-compose is installed
+docker_compose(){
+    echo "Checking if Docker Compose is installed..."
+    if command -v docker-compose >/dev/null 2>&1; then
+        echo "Docker Compose is already installed"
+    else
+        echo "Docker Compose is not installed, starting installation..."
+        $SUDO curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+        $SUDO apt install docker-compose -y
+    fi
+}
 
-# Install Docker Compose
-sudo apt install docker-compose -y
+# call docker-compose function
+docker_compose
 
 # Apply executable permissions to the binary
-sudo chmod +x /usr/local/bin/docker-compose
+$SUDO chmod +x /usr/local/bin/docker-compose
 
 # Check Docker Compose version
 echo " 📦 Checking Docker Compose version..."
