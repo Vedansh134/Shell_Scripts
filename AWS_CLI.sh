@@ -2,12 +2,18 @@
 
 # ========================= AWS CLI Installation Script =========================
 
+# testing (change to set -xeou pipefail for testing)
+set +xeou pipefail
+
+# define variables
+SUDO='sudo'
+
 echo " 🚀 Installation of AWS CLI started"
 echo ""
 
 # Update ubuntu
 echo " 🛠️ Updating Ubuntu packages..."
-sudo apt update
+$SUDO apt update
 echo ""
 
 
@@ -20,7 +26,7 @@ then
 else
     echo ""
     echo " 📦 Installing Python..."
-    sudo apt install python3 -y
+    $SUDO apt install python3 -y
     python3 --version
     echo ""
 fi
@@ -30,13 +36,13 @@ fi
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
 # Install unzip
-sudo apt install unzip -y
+$SUDO apt install unzip -y
 
 # unzip the installer
 unzip awscliv2.zip
 
 # Install AWS CLI
-sudo ./aws/install
+$SUDO ./aws/install
 
 # Verify the installation
 echo " 📦 Verifying the installation..."
