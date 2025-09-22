@@ -2,12 +2,18 @@
 
 # ========================= install trivy script ==============================
 
+# testing (change to set -xeou pipefail for testing)
+set +xeou pipefail
+
+# define variables
+SUDO='sudo'
+
 echo " 🚀 Installation of Trivy started"
 echo ""
 
 # Install required packages
 echo
-sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+$SUDO apt-get install wget apt-transport-https gnupg lsb-release -y
 
 # Add Trivy GPG key
 echo " 🔑 Adding Trivy GPG key..."
