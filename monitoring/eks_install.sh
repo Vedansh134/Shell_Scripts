@@ -13,6 +13,10 @@ set +xeou pipefail
 # define variables
 SUDO='sudo'
 
+# take input from user
+read -p "Enter the cluster name: (e.g. observability) : " CLUSTER_NAME
+read -p "Enter the region (e.g. ap-south-1) : " REGION
+
 # update the ubuntu package list
 $SUDO apt-get update -y
 
@@ -67,8 +71,6 @@ fi
 eks_cluster_create() {
     echo " 🚀 EKS cluster creation started"
     echo ""
-    read -p "Enter the cluster name: " CLUSTER_NAME
-    read -p "Enter the region (e.g. ap-south-1): " REGION
     read -p "Enter the number of zones (e.g. ap-south-1a,ap-south-1b give atleast 2): " ZONES
 
     echo " 🔧 Creating EKS cluster..."
@@ -92,12 +94,18 @@ eksctl utils associate-iam-oidc-provider \
 
 # Node group function
 create_node_group() {
-    eksctl create nodegroup --cluster=observability \
-                        --region=us-east-1 \
+    echo "🚀 Node Group creation started"
+    echo ""
+    read -p "Enter the node type (e.g. t3.medium) : " NODE_TYPE
+    read -p "Enter the min nodes (e.g. 2) : " MIN
+    read -p "Enter the max nodes (e.g. 3) : " MAX
+
+    eksctl create nodegroup --cluster=$CLUSTER_NAME \
+                        --region=$REGION \
                         --name=observability-ng-private \
-                        --node-type=t3.medium \
-                        --nodes-min=2 \
-                        --nodes-max=3 \
+                        --node-type=$NODE_TYPE \
+                        --nodes-min=$MIN \
+                        --nodes-max=$MAX \
                         --node-volume-size=20 \
                         --managed \
                         --asg-access \
@@ -108,5 +116,10 @@ create_node_group() {
                         --node-private-networking
 }
 
+# Call the Node Group creation function
+create_node_group
+
 # Update ./kube/config file
 aws eks update-kubeconfig --name observability
+
+#=============================== script end ==========================================
