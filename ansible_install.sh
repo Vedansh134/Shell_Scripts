@@ -3,6 +3,8 @@
 #############################################################################################
 # =================================== Ansible installation script ===========================
 
+# for ubuntu/debian based systems
+
 # version : 1.0
 # author : Vedansh kumar
 # date : 27/09/2025
@@ -20,17 +22,17 @@ echo ""
 
 # check python is installed or not
 if command -v python >/dev/null 2>&1; then
-    echo "python is already installed"
+    echo "✅ python is already installed $(python3 --version)"
 else
-    echo "python is not installed, installing python..."
-    $SUDO apt install python -y
+    echo "❌ python is not installed, installing python3..."
+    $SUDO apt install python3 -y
 fi
 
 # check pip is installed or not
 if command -v pip >/dev/null 2>&1; then
-    echo "pip is already installed"
+    echo "✅ pip3 already installed: $(pip3 --version)"
 else
-    echo "pip is not installed, installing pip..."
+    echo "❌ pip is not installed, installing pip..."
     $SUDO apt install python3-pip -y
 fi
 
@@ -38,7 +40,7 @@ fi
 install_ansible(){
     echo "  Installing Ansible..."
     if command -v ansible >/dev/null 2>&1; then
-        echo "✅ Ansible is already installed"
+        echo "✅ Ansible is already installed $(ansible --version | head -n1)"
     else
         echo "❌ Ansible is not installed, starting installation..."
         $SUDO add-apt-repository ppa:ansible/ansible
