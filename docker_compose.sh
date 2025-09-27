@@ -10,7 +10,7 @@ SUDO='sudo'
 
 # Update ubuntu
 echo " 🛠️ Updating Ubuntu packages..."
-$SUDO apt update -y
+$SUDO apt update
 echo ""
 
 # Install Git
