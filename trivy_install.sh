@@ -14,7 +14,7 @@ echo ""
 # trivy install function
 install_trivy() {
     echo " 🔧 Installing Trivy..."
-    if command -v trivy &> /dev/null; then
+    if command -v trivy >/dev/null 2>&1; then
         echo " ✅ Trivy is already installed."
     else
         echo " ❌ Trivy is not installed. Proceeding with installation..."
