@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ================================== Install Jenkins via shell script ==============================
-# Version: 2.0
+# Version: 3.0
 # Date: 02-11-2025
 # Author: Vedansh kumar
 # Description: With the help of this shell script we can automate the installation process of Jenkins
@@ -104,7 +104,9 @@ $SUDO jenkins --version
 # For running the script
 
 # Make the Script Executable:    chmod +x jenkins_install.sh
-# Run the Script                 ./jenkins_install.sh
+# Run the Script                 ./jenkins_install.shor
+
+# For find jenkins password: sudo cat /var/lib/jenkins/secrets/initialAdminPassword  (ubuntu linux)
 
 
 # ================================== end of script ===============================
