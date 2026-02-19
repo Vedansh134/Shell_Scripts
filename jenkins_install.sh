@@ -45,7 +45,7 @@ install_jenkins(){
   # Add Jenkins repository and key
   echo " 🔑 Adding Jenkins repository and key..."
   $SUDO wget -O /etc/apt/keyrings/jenkins-keyring.asc \
-  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
   echo ""
 
   # Add Jenkins repository
